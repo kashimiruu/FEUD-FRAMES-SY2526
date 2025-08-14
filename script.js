@@ -70,23 +70,29 @@ uploadInput.addEventListener('change', (e) => {
 function drawPreview() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
+    const padding = 0.12; // 12%
+    const usableWidth = canvas.width * (1 - 2 * padding);
+    const usableHeight = canvas.height * (1 - 2 * padding);
+    const offsetXCanvas = canvas.width * padding;
+    const offsetYCanvas = canvas.height * padding;
+
     if (uploadedImage) {
         const imgRatio = uploadedImage.width / uploadedImage.height;
-        const canvasRatio = canvas.width / canvas.height;
+        const canvasRatio = usableWidth / usableHeight;
         let drawWidth, drawHeight, offsetX, offsetY;
 
         if (imgRatio > canvasRatio) {
             // Image is wider → fill height, crop sides
-            drawHeight = canvas.height;
+            drawHeight = usableHeight;
             drawWidth = imgRatio * drawHeight;
-            offsetX = (canvas.width - drawWidth) / 2;
-            offsetY = 0;
+            offsetX = offsetXCanvas + (usableWidth - drawWidth) / 2;
+            offsetY = offsetYCanvas;
         } else {
             // Image is taller → fill width, crop top/bottom
-            drawWidth = canvas.width;
+            drawWidth = usableWidth;
             drawHeight = drawWidth / imgRatio;
-            offsetX = 0;
-            offsetY = (canvas.height - drawHeight) / 2;
+            offsetX = offsetXCanvas;
+            offsetY = offsetYCanvas + (usableHeight - drawHeight) / 2;
         }
 
         ctx.drawImage(uploadedImage, offsetX, offsetY, drawWidth, drawHeight);
@@ -96,6 +102,7 @@ function drawPreview() {
         ctx.drawImage(frameImage, 0, 0, canvas.width, canvas.height);
     }
 }
+
 
 
 // Download image
@@ -164,4 +171,5 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 });
 
-console.log("uploaded correctly.");
+
+

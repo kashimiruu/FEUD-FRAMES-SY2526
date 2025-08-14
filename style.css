@@ -6,7 +6,7 @@ body {
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 20px;
-  background: #f4f4f4;
+  background: rgba(254, 190, 16, 0.3);
   min-height: 100vh;       /* Always fill the screen */
   display: flex;
   justify-content: center;
@@ -104,9 +104,4 @@ canvas {
 .cover-content p {
     margin: 0;
     padding: 0;
-}
-
-
-body {
-    background: linear-gradient(135deg, #a1c4fd, #c2e9fb);
 }
