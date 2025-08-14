@@ -8,32 +8,56 @@
 </head>
 <body>
 
-<h1>DP Blast Generator</h1>
+<!-- Loading Cover -->
+<div id="loadingCover" class="cover">
+    <div class="cover-content">
+        <p>Loading, please wait...</p>
+    </div>
+</div>
 
-<!-- Step 1: Category -->
-<label for="category">Select Category:</label>
-<select id="category">
-    <option value="">-- Select Category --</option>
-    <option value="associate">Associate</option>
-    <option value="faculty">Faculty</option>
-    <option value="student">Student</option>
-</select>
+<!-- Rotate Phone Cover -->
+<div id="rotateCover" class="cover">
+    <div class="cover-content">
+        <p>Please rotate your phone</p>
+    </div>
+</div>
 
-<!-- Step 2: Sub-options -->
-<label for="subOption">Select Your Department / Group:</label>
-<select id="subOption">
-    <option value="">-- Select a category first --</option>
-</select>
+<div class="container">
+    <section>
+        <form>
+            <h1>DP Blast Generator</h1>
 
-<!-- Step 3: Upload -->
-<label for="upload">Upload Your Picture:</label>
-<input type="file" id="upload" accept="image/*">
+            <!-- Step 1: Category -->
+            <label for="category">Select Category:</label>
+            <select id="category">
+                <option value="">-- Select Category --</option>
+                <option value="associate">Associate</option>
+                <option value="faculty">Faculty</option>
+                <option value="student">Student</option>
+            </select>
 
-<!-- Preview -->
-<canvas id="previewCanvas" width="800" height="800"></canvas>
+            <!-- Step 2: Sub-options -->
+            <label for="subOption">Select Your Department / Group:</label>
+            <select id="subOption">
+                <option value="">-- Select a category first --</option>
+            </select>
 
-<!-- Step 4: Download -->
-<button id="downloadBtn">Download Image</button>
+            <!-- Step 3: Upload -->
+            <label for="upload">Upload Your Picture:</label>
+            <input type="file" id="upload" accept="image/*">
+
+            <!-- Step 4: Download -->
+            <button id="downloadBtn">Download Image</button>
+        </form>
+        <footer>
+            Frames by Vernie John Baltazar
+        </footer>
+    </section>
+    <section>
+        <!-- Preview -->
+        <canvas id="previewCanvas" width="400" height="400"></canvas>
+    </section>
+</div>
 
 <script src="script.js"></script>
 </body>

@@ -69,13 +69,34 @@ uploadInput.addEventListener('change', (e) => {
 // Draw preview
 function drawPreview() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+
     if (uploadedImage) {
-        ctx.drawImage(uploadedImage, 0, 0, canvas.width, canvas.height);
+        const imgRatio = uploadedImage.width / uploadedImage.height;
+        const canvasRatio = canvas.width / canvas.height;
+        let drawWidth, drawHeight, offsetX, offsetY;
+
+        if (imgRatio > canvasRatio) {
+            // Image is wider → fill height, crop sides
+            drawHeight = canvas.height;
+            drawWidth = imgRatio * drawHeight;
+            offsetX = (canvas.width - drawWidth) / 2;
+            offsetY = 0;
+        } else {
+            // Image is taller → fill width, crop top/bottom
+            drawWidth = canvas.width;
+            drawHeight = drawWidth / imgRatio;
+            offsetX = 0;
+            offsetY = (canvas.height - drawHeight) / 2;
+        }
+
+        ctx.drawImage(uploadedImage, offsetX, offsetY, drawWidth, drawHeight);
     }
+
     if (frameImage) {
         ctx.drawImage(frameImage, 0, 0, canvas.width, canvas.height);
     }
 }
+
 
 // Download image
 downloadBtn.addEventListener('click', () => {
@@ -84,3 +105,64 @@ downloadBtn.addEventListener('click', () => {
     link.href = canvas.toDataURL();
     link.click();
 });
+
+// Disable initially
+downloadBtn.disabled = true;
+
+// Disables the button when a category or suboption change
+categorySelect.addEventListener('change', () => {
+    downloadBtn.disabled = !subOptionSelect.value; 
+});
+subOptionSelect.addEventListener('change', () => {
+    downloadBtn.disabled = !subOptionSelect.value; 
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+    const loadingCover = document.getElementById("loadingCover");
+    const rotateCover = document.getElementById("rotateCover");
+
+    // Function to check orientation
+    function checkOrientation() {
+        if (window.innerHeight > window.innerWidth) {
+            rotateCover.style.display = "flex";
+        } else {
+            rotateCover.style.display = "none";
+        }
+    }
+
+    // Check orientation on load and resize
+    checkOrientation();
+    window.addEventListener("resize", checkOrientation);
+
+    // Wait until all images and frames are loaded
+    const images = Array.from(document.images); // all <img> tags (if any)
+    const frames = []; // your frame images can be added here if preloading
+
+    const allImages = [...images, ...frames];
+
+    if (allImages.length === 0) {
+        // No images to wait for, hide loading immediately
+        loadingCover.style.display = "none";
+    } else {
+        let loadedCount = 0;
+        allImages.forEach((img) => {
+            if (img.complete) {
+                loadedCount++;
+            } else {
+                img.addEventListener("load", () => {
+                    loadedCount++;
+                    if (loadedCount === allImages.length) {
+                        loadingCover.style.display = "none";
+                    }
+                });
+            }
+        });
+        // If all images were already complete
+        if (loadedCount === allImages.length) {
+            loadingCover.style.display = "none";
+        }
+    }
+});
+
+
+
