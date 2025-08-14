@@ -164,5 +164,4 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 });
 
-
-
+console.log("uploaded correctly.");
