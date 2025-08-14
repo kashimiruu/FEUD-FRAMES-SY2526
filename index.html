@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DP Blast Generator</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h1>DP Blast Generator</h1>
+
+<!-- Step 1: Category -->
+<label for="category">Select Category:</label>
+<select id="category">
+    <option value="">-- Select Category --</option>
+    <option value="associate">Associate</option>
+    <option value="faculty">Faculty</option>
+    <option value="student">Student</option>
+</select>
+
+<!-- Step 2: Sub-options -->
+<label for="subOption">Select Your Department / Group:</label>
+<select id="subOption">
+    <option value="">-- Select a category first --</option>
+</select>
+
+<!-- Step 3: Upload -->
+<label for="upload">Upload Your Picture:</label>
+<input type="file" id="upload" accept="image/*">
+
+<!-- Preview -->
+<canvas id="previewCanvas" width="800" height="800"></canvas>
+
+<!-- Step 4: Download -->
+<button id="downloadBtn">Download Image</button>
+
+<script src="script.js"></script>
+</body>
+</html>
